@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סקריפט טווח מהירות 16-250</title>
+    <style>
+        /* עיצוב שחור-לבן נקי ומינימליסטי */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid #000000;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        h2 {
+            text-align: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* אלמנט פתיחה ודפדוף (Accordion / Details) */
+        details {
+            border: 1px solid #000000;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            background: #f4f4f4;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1em;
+            outline: none;
+        }
+
+        .speed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #000000;
+        }
+
+        .speed-item {
+            border: 1px solid #000000;
+            text-align: center;
+            padding: 8px 0;
+            background: #ffffff;
+            font-weight: bold;
+        }
+
+        .speed-item:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* אזור חיפוש מהיר */
+        .search-box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 80%;
+            padding: 10px;
+            border: 2px solid #000000;
+            font-size: 1em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ניהול טווח מהירויות (16 - 250)</h2>
+
+    <!-- תיבת חיפוש נוחה -->
+    <div class="search-box">
+        <input type="number" id="searchInput" placeholder="חפש מהירות ספציפית..." min="16" max="250" oninput="filterSpeed()">
+    </div>
+
+    <!-- אזור הנתונים עם אופציית סגירה ופתיחה (דגור/לפתוח) -->
+    <details open>
+        <summary>הצג טווח מלא (16 - 250)</summary>
+        <div class="speed-grid" id="speedGrid">
+            <!-- הנתונים יוכנסו לכאן דינמית על ידי הסקריפט -->
+        </div>
+    </details>
+</div>
+
+<script>
+    // יצירת הנתונים מ-16 עד 250 באופן אוטומטי
+    const grid = document.getElementById('speedGrid');
+    
+    for (let i = 16; i <= 250; i++) {
+        const item = document.createElement('div');
+        item.className = 'speed-item';
+        item.innerText = i;
+        item.setAttribute('data-speed', i);
+        grid.appendChild(item);
+    }
+
+    // פונקציית סינון לפי חיפוש
+    function filterSpeed() {
+        let filterValue = document.getElementById('searchInput').value;
+        let items = document.getElementsByClassName('speed-item');
+
+        for (let i = 0; i < items.length; i++) {
+            let speed = items[i].getAttribute('data-speed');
+            if (speed.includes(filterValue) || filterValue === "") {
+                items[i].style.display = "block";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
