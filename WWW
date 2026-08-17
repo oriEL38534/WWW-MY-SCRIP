@@ -1,9 +1,7 @@
--- יצירת ממשק משתמש (GUI) ברובלוקס בשחור-לבן עם טווח מהירויות 16-250
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
--- מחיקת ממשק קודם אם קיים
 if playerGui:FindFirstChild("SpeedScriptGui") then
     playerGui.SpeedScriptGui:Destroy()
 end
@@ -50,11 +48,9 @@ for i = 16, 250 do
     btn.TextScaled = true
     btn.Parent = scrollingFrame
     
-    -- אופציה: מה קורה כשלוחצים על מהירות
     btn.MouseButton1Click:Connect(function()
         if player.Character and player.Character:FindFirstChild("Humanoid") then
             player.Character.Humanoid.WalkSpeed = i
-            print("המהירות שונתה ל: " .. i)
         end
     end)
 end
